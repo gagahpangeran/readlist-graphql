@@ -1,15 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "es6",
-      "es5",
-      "es2018",
-      "esnext.asynciterable"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "es2018", "esnext.asynciterable"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -23,9 +15,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "jsx": "react-jsx"
+    "experimentalDecorators": true
   },
   "exclude": ["node_modules", "funcs"],
-  "include": ["src", "graphql"]
+  "include": ["src"]
 }
