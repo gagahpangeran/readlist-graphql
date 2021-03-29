@@ -11,12 +11,7 @@ export function getFindOptions(args: ReadListArgs) {
   };
 
   if (sort !== undefined) {
-    const { fields, order } = sort;
-
-    findOptions.order = {
-      [fields]: order,
-      createdAt: order
-    };
+    findOptions.order = sort.getSortOptions();
   }
 
   if (filter !== undefined) {

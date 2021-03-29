@@ -42,6 +42,14 @@ registerEnumType(ReadListFields, { name: "ReadListFields" });
 class ReadListSort extends Sort {
   @Field(_type => ReadListFields)
   fields!: ReadListFields;
+
+  getSortOptions() {
+    const sortOptions: FindOneOptions<ReadList>["order"] = {
+      [this.fields]: this.order,
+      createdAt: this.order
+    };
+    return sortOptions;
+  }
 }
 
 @InputType()
