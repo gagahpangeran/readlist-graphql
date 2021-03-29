@@ -39,10 +39,7 @@ export async function editReadList(id: string, data: Data) {
   return await (await getRepo()).save({ id, ...data });
 }
 
-export async function deleteReadLists(
-  ids: string[],
-  args: ReadListServiceArgs
-) {
+export async function deleteReadLists(ids: string[]) {
   await (await getRepo()).softDelete(ids);
-  return await getAllReadList(args);
+  return true;
 }

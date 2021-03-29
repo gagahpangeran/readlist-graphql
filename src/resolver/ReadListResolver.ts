@@ -28,11 +28,8 @@ export default class ReadListResolver {
     return editReadList(id, readListData);
   }
 
-  @Mutation(_returns => [ReadList])
-  deleteReadLists(
-    @Arg("ids", _type => [ID]) ids: string[],
-    @Args() args: ReadListArgs
-  ) {
-    return deleteReadLists(ids, args);
+  @Mutation(_returns => Boolean)
+  deleteReadLists(@Arg("ids", _type => [ID]) ids: string[]) {
+    return deleteReadLists(ids);
   }
 }
