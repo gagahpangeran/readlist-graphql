@@ -20,12 +20,14 @@ export function getFindOptions(args: ReadListArgs) {
   }
 
   if (filter !== undefined) {
-    const { title } = filter;
+    const { title, link } = filter;
 
     const titleKeyword = getKeyword(title?.contains);
+    const linkKeyword = getKeyword(link?.contains);
 
     findOptions.where = {
-      title: titleKeyword
+      title: titleKeyword,
+      link: linkKeyword
     };
   }
 
