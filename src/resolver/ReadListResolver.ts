@@ -1,47 +1,12 @@
-import {
-  Arg,
-  Args,
-  ArgsType,
-  Field,
-  ID,
-  InputType,
-  Int,
-  Mutation,
-  Query,
-  Resolver
-} from "type-graphql";
+import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
+import { ReadListArgs, ReadListInput } from "../input/ReadListInput";
 import ReadList from "../model/ReadList";
 import {
   addReadList,
   deleteReadLists,
   editReadList,
-  getAllReadList,
-  ReadListServiceArgs
+  getAllReadList
 } from "../service/ReadListService";
-
-@InputType()
-class ReadListInput implements Partial<ReadList> {
-  @Field()
-  link!: string;
-
-  @Field()
-  title!: string;
-
-  @Field({ nullable: true })
-  readAt?: Date;
-
-  @Field({ nullable: true })
-  comment?: string;
-}
-
-@ArgsType()
-class ReadListArgs implements ReadListServiceArgs {
-  @Field(_type => Int, { defaultValue: 10 })
-  limit!: number;
-
-  @Field(_type => Int, { defaultValue: 0 })
-  skip!: number;
-}
 
 @Resolver(_of => ReadList)
 export default class ReadListResolver {
