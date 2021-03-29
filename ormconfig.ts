@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { ConnectionOptions } from "typeorm";
-import migrations from "./src/migrations";
+import migrations from "./migrations";
 import ReadList from "./src/model/ReadList";
 
 dotenv.config();

@@ -18,5 +18,5 @@
     "experimentalDecorators": true
   },
   "exclude": ["node_modules", "funcs"],
-  "include": ["src"]
+  "include": ["src", "migrations"]
 }
