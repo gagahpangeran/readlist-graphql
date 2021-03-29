@@ -7,7 +7,7 @@ import {
   registerEnumType
 } from "type-graphql";
 import { FindOneOptions } from "typeorm";
-import ReadList from "../model/ReadList";
+import ReadList from "../../model/ReadList";
 import {
   ContainsFilter,
   DateFilter,
