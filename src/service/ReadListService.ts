@@ -1,5 +1,6 @@
 import { IsNull, Not } from "typeorm";
 import { getConnection } from "../config/db";
+import { ReadListArgs } from "../input/ReadListInput";
 import Base from "../model/Base";
 import ReadList from "../model/ReadList";
 
@@ -10,12 +11,7 @@ async function getRepo() {
 
 type Data = Omit<ReadList, "id" | keyof Base>;
 
-export interface ReadListServiceArgs {
-  limit: number;
-  skip: number;
-}
-
-export async function getAllReadList(args: ReadListServiceArgs) {
+export async function getAllReadList(args: ReadListArgs) {
   const { limit, skip } = args;
 
   return await (await getRepo()).find({
