@@ -45,6 +45,12 @@ class CommentFilter extends ContainsFilter {
 }
 
 @InputType()
+class ReadAtFilter extends DateFilter {
+  @Field(_type => Boolean, { nullable: true })
+  isNull?: boolean;
+}
+
+@InputType()
 class ReadListFilter {
   @Field(_type => ContainsFilter, { nullable: true })
   title?: ContainsFilter;
@@ -55,8 +61,8 @@ class ReadListFilter {
   @Field(_type => CommentFilter, { nullable: true })
   comment?: CommentFilter;
 
-  @Field(_type => DateFilter, { nullable: true })
-  readAt?: DateFilter;
+  @Field(_type => ReadAtFilter, { nullable: true })
+  readAt?: ReadAtFilter;
 }
 
 @ArgsType()
