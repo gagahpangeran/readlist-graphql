@@ -1,5 +1,5 @@
-import { FindManyOptions, IsNull, Like, Not } from "typeorm";
-import { ReadListArgs } from "../input/ReadListInput";
+import { FindManyOptions, FindOneOptions, IsNull, Like, Not } from "typeorm";
+import { ReadListArgs, ReadListFilter } from "../input/ReadListInput";
 import ReadList from "../model/ReadList";
 
 export function getFindOptions(args: ReadListArgs) {
@@ -20,32 +20,33 @@ export function getFindOptions(args: ReadListArgs) {
   }
 
   if (filter !== undefined) {
-    const { title, link, comment } = filter;
-    const filterOptions: typeof findOptions.where = {};
-
-    const titleKeyword = getKeyword(title?.contains);
-    if (titleKeyword !== undefined) {
-      filterOptions.title = titleKeyword;
-    }
-
-    const linkKeyword = getKeyword(link?.contains);
-    if (linkKeyword !== undefined) {
-      filterOptions.link = linkKeyword;
-    }
-
-    const commentOptions = getCommentOptions(
-      comment?.isNull,
-      comment?.contains
-    );
-
-    if (commentOptions !== undefined) {
-      filterOptions.comment = commentOptions;
-    }
-
-    findOptions.where = filterOptions;
+    findOptions.where = getFilterOptions(filter);
   }
 
   return findOptions;
+}
+
+function getFilterOptions(filter: ReadListFilter) {
+  const { title, link, comment } = filter;
+  const filterOptions: FindOneOptions<ReadList>["where"] = {};
+
+  const titleKeyword = getKeyword(title?.contains);
+  if (titleKeyword !== undefined) {
+    filterOptions.title = titleKeyword;
+  }
+
+  const linkKeyword = getKeyword(link?.contains);
+  if (linkKeyword !== undefined) {
+    filterOptions.link = linkKeyword;
+  }
+
+  const commentOptions = getCommentOptions(comment?.isNull, comment?.contains);
+
+  if (commentOptions !== undefined) {
+    filterOptions.comment = commentOptions;
+  }
+
+  return filterOptions;
 }
 
 function getCommentOptions(isNull?: boolean, keyword?: string) {

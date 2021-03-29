@@ -51,7 +51,7 @@ class ReadAtFilter extends DateFilter {
 }
 
 @InputType()
-class ReadListFilter {
+export class ReadListFilter {
   @Field(_type => ContainsFilter, { nullable: true })
   title?: ContainsFilter;
 
