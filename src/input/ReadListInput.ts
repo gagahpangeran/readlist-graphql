@@ -1,3 +1,4 @@
+import { Max, Min } from "class-validator";
 import { ArgsType, Field, InputType, Int } from "type-graphql";
 import ReadList from "../model/ReadList";
 
@@ -18,9 +19,13 @@ export class ReadListInput implements Partial<ReadList> {
 
 @ArgsType()
 export class ReadListArgs {
-  @Field(_type => Int, { defaultValue: 10 })
-  limit!: number;
+  @Field(_type => Int)
+  @Min(0)
+  @Max(100)
+  limit = 100;
 
-  @Field(_type => Int, { defaultValue: 0 })
-  skip!: number;
+  @Field(_type => Int)
+  @Min(0)
+  @Max(100)
+  skip = 0;
 }
