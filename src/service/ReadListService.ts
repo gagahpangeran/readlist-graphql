@@ -1,8 +1,8 @@
+import { FindManyOptions } from "typeorm";
 import { getConnection } from "../config/db";
 import { ReadListArgs } from "../input/ReadListInput";
 import Base from "../model/Base";
 import ReadList from "../model/ReadList";
-import { getFindOptions } from "../utils/readlist";
 
 async function getRepo() {
   const conn = await getConnection();
@@ -12,7 +12,21 @@ async function getRepo() {
 type Data = Omit<ReadList, "id" | keyof Base>;
 
 export async function getAllReadList(args: ReadListArgs) {
-  const findOptions = getFindOptions(args);
+  const { limit, skip, sort, filter } = args;
+
+  const findOptions: FindManyOptions<ReadList> = {
+    skip,
+    take: limit
+  };
+
+  if (sort !== undefined) {
+    findOptions.order = sort.getSortOptions();
+  }
+
+  if (filter !== undefined) {
+    findOptions.where = filter.getFilterOptions();
+  }
+
   return await (await getRepo()).find(findOptions);
 }
 
