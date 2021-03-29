@@ -22,8 +22,8 @@ export class ContainsFilter {
 @InputType()
 export class DateFilter {
   @Field(_type => Date, { nullable: true })
-  before?: Date;
+  from?: Date;
 
   @Field(_type => Date, { nullable: true })
-  after?: Date;
+  to?: Date;
 }
