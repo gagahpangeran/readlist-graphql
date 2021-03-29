@@ -12,3 +12,9 @@ export class Sort {
   @Field(_type => Order)
   order!: Order;
 }
+
+@InputType()
+export class ContainsFilter {
+  @Field(_type => String)
+  contains!: string;
+}

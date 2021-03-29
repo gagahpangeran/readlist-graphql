@@ -7,7 +7,7 @@ import {
   registerEnumType
 } from "type-graphql";
 import ReadList from "../model/ReadList";
-import { Sort } from "./BaseInput";
+import { ContainsFilter, Sort } from "./BaseInput";
 
 @InputType()
 export class ReadListInput implements Partial<ReadList> {
@@ -37,6 +37,18 @@ class ReadListSort extends Sort {
   fields!: Fields;
 }
 
+@InputType()
+class ReadListFilter {
+  @Field(_type => ContainsFilter)
+  title?: ContainsFilter;
+
+  @Field(_type => ContainsFilter)
+  link?: ContainsFilter;
+
+  @Field(_type => ContainsFilter)
+  comment?: ContainsFilter;
+}
+
 @ArgsType()
 export class ReadListArgs {
   @Field(_type => Int)
@@ -51,4 +63,7 @@ export class ReadListArgs {
 
   @Field(_type => ReadListSort, { nullable: true })
   sort?: ReadListSort;
+
+  @Field(_type => ReadListFilter, { nullable: true })
+  filter?: ReadListFilter;
 }
