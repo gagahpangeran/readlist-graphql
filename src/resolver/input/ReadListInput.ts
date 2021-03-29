@@ -13,7 +13,7 @@ import {
   DateFilter,
   getWithNullOptions,
   Sort
-} from "./BaseInput";
+} from "./BaseSortFilter";
 
 @InputType()
 export class ReadListInput implements Partial<ReadList> {
