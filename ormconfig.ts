@@ -16,7 +16,8 @@ const connectionOptions: ConnectionOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: [ReadList],
-  migrations
+  migrations,
+  cache: true
 };
 
 export default connectionOptions;
