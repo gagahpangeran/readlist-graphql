@@ -1,8 +1,11 @@
 import {
   Arg,
+  Args,
+  ArgsType,
   Field,
   ID,
   InputType,
+  Int,
   Mutation,
   Query,
   Resolver
@@ -12,7 +15,8 @@ import {
   addReadList,
   deleteReadLists,
   editReadList,
-  getAllReadList
+  getAllReadList,
+  ReadListServiceArgs
 } from "../service/ReadListService";
 
 @InputType()
@@ -29,11 +33,21 @@ class ReadListInput implements Partial<ReadList> {
   @Field({ nullable: true })
   comment?: string;
 }
+
+@ArgsType()
+class ReadListArgs implements ReadListServiceArgs {
+  @Field(_type => Int, { defaultValue: 10 })
+  limit!: number;
+
+  @Field(_type => Int, { defaultValue: 0 })
+  skip!: number;
+}
+
 @Resolver(_of => ReadList)
 export default class ReadListResolver {
   @Query(_returns => [ReadList])
-  async allReadLists() {
-    return await getAllReadList();
+  async allReadLists(@Args() args: ReadListArgs) {
+    return await getAllReadList(args);
   }
 
   @Mutation(_returns => ReadList)
@@ -50,7 +64,10 @@ export default class ReadListResolver {
   }
 
   @Mutation(_returns => [ReadList])
-  deleteReadLists(@Arg("ids", _type => [ID]) ids: string[]) {
-    return deleteReadLists(ids);
+  deleteReadLists(
+    @Arg("ids", _type => [ID]) ids: string[],
+    @Args() args: ReadListArgs
+  ) {
+    return deleteReadLists(ids, args);
   }
 }
