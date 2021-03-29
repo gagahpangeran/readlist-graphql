@@ -18,3 +18,12 @@ export class ContainsFilter {
   @Field(_type => String, { nullable: true })
   contains?: string;
 }
+
+@InputType()
+export class DateFilter {
+  @Field(_type => Date, { nullable: true })
+  before?: Date;
+
+  @Field(_type => Date, { nullable: true })
+  after?: Date;
+}

@@ -7,7 +7,7 @@ import {
   registerEnumType
 } from "type-graphql";
 import ReadList from "../model/ReadList";
-import { ContainsFilter, Sort } from "./BaseInput";
+import { ContainsFilter, DateFilter, Sort } from "./BaseInput";
 
 @InputType()
 export class ReadListInput implements Partial<ReadList> {
@@ -54,6 +54,9 @@ class ReadListFilter {
 
   @Field(_type => CommentFilter, { nullable: true })
   comment?: CommentFilter;
+
+  @Field(_type => DateFilter, { nullable: true })
+  readAt?: DateFilter;
 }
 
 @ArgsType()
