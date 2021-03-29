@@ -1,5 +1,11 @@
 import { Max, Min } from "class-validator";
-import { ArgsType, Field, InputType, Int } from "type-graphql";
+import {
+  ArgsType,
+  Field,
+  InputType,
+  Int,
+  registerEnumType
+} from "type-graphql";
 import ReadList from "../model/ReadList";
 
 @InputType()
@@ -17,6 +23,28 @@ export class ReadListInput implements Partial<ReadList> {
   comment?: string;
 }
 
+enum Fields {
+  readAt = "readAt",
+  title = "title"
+}
+
+enum Order {
+  ASC = "ASC",
+  DESC = "DESC"
+}
+
+registerEnumType(Fields, { name: "Fields" });
+registerEnumType(Order, { name: "Order" });
+
+@InputType()
+class Sort {
+  @Field(_type => Fields)
+  fields = Fields.readAt;
+
+  @Field(_type => Order)
+  order = Order.DESC;
+}
+
 @ArgsType()
 export class ReadListArgs {
   @Field(_type => Int)
@@ -28,4 +56,7 @@ export class ReadListArgs {
   @Min(0)
   @Max(100)
   skip = 0;
+
+  @Field(_type => Sort, { nullable: true })
+  sort?: Sort;
 }
