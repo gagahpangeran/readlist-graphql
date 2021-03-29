@@ -7,6 +7,7 @@ import {
   registerEnumType
 } from "type-graphql";
 import ReadList from "../model/ReadList";
+import { Sort } from "./BaseInput";
 
 @InputType()
 export class ReadListInput implements Partial<ReadList> {
@@ -28,21 +29,12 @@ enum Fields {
   title = "title"
 }
 
-enum Order {
-  ASC = "ASC",
-  DESC = "DESC"
-}
-
 registerEnumType(Fields, { name: "Fields" });
-registerEnumType(Order, { name: "Order" });
 
 @InputType()
-class Sort {
+class ReadListSort extends Sort {
   @Field(_type => Fields)
-  fields = Fields.readAt;
-
-  @Field(_type => Order)
-  order = Order.DESC;
+  fields!: Fields;
 }
 
 @ArgsType()
@@ -57,6 +49,6 @@ export class ReadListArgs {
   @Max(100)
   skip = 0;
 
-  @Field(_type => Sort, { nullable: true })
-  sort?: Sort;
+  @Field(_type => ReadListSort, { nullable: true })
+  sort?: ReadListSort;
 }
