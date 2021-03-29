@@ -40,8 +40,8 @@ function getFilterOptions(filter: ReadListFilter) {
     filterOptions.link = linkKeyword;
   }
 
-  const commentOptions = getCommentOptions(comment?.isNull, comment?.contains);
-
+  const commentKeyword = getKeyword(comment?.contains);
+  const commentOptions = getWithNullOptions(comment?.isNull, commentKeyword);
   if (commentOptions !== undefined) {
     filterOptions.comment = commentOptions;
   }
@@ -49,18 +49,18 @@ function getFilterOptions(filter: ReadListFilter) {
   return filterOptions;
 }
 
-function getCommentOptions(isNull?: boolean, keyword?: string) {
+function getWithNullOptions<T>(isNull?: boolean, filterValue?: T) {
   switch (isNull) {
     case true:
       return IsNull();
     case false:
-      if (keyword === undefined) {
+      if (filterValue === undefined) {
         return Not(IsNull());
       }
-      return getKeyword(keyword);
+      return filterValue;
     case undefined:
     default:
-      return getKeyword(keyword);
+      return filterValue;
   }
 }
 
