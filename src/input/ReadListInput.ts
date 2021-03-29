@@ -25,17 +25,17 @@ export class ReadListInput implements Partial<ReadList> {
   comment?: string;
 }
 
-enum Fields {
+enum ReadListFields {
   readAt = "readAt",
   title = "title"
 }
 
-registerEnumType(Fields, { name: "Fields" });
+registerEnumType(ReadListFields, { name: "ReadListFields" });
 
 @InputType()
 class ReadListSort extends Sort {
-  @Field(_type => Fields)
-  fields!: Fields;
+  @Field(_type => ReadListFields)
+  fields!: ReadListFields;
 }
 
 @InputType()
