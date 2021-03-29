@@ -1,4 +1,4 @@
-import { Max, Min } from "class-validator";
+import { IsUrl, Max, Min } from "class-validator";
 import {
   ArgsType,
   Field,
@@ -11,6 +11,7 @@ import { ContainsFilter, Sort } from "./BaseInput";
 
 @InputType()
 export class ReadListInput implements Partial<ReadList> {
+  @IsUrl()
   @Field()
   link!: string;
 
