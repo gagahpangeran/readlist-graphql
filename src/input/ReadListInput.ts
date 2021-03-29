@@ -40,19 +40,19 @@ class ReadListSort extends Sort {
 
 @InputType()
 class CommentFilter extends ContainsFilter {
-  @Field(_type => Boolean)
+  @Field(_type => Boolean, { nullable: true })
   isNull?: boolean;
 }
 
 @InputType()
 class ReadListFilter {
-  @Field(_type => ContainsFilter)
+  @Field(_type => ContainsFilter, { nullable: true })
   title?: ContainsFilter;
 
-  @Field(_type => ContainsFilter)
+  @Field(_type => ContainsFilter, { nullable: true })
   link?: ContainsFilter;
 
-  @Field(_type => CommentFilter)
+  @Field(_type => CommentFilter, { nullable: true })
   comment?: CommentFilter;
 }
 

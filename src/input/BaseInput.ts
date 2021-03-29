@@ -15,6 +15,6 @@ export class Sort {
 
 @InputType()
 export class ContainsFilter {
-  @Field(_type => String)
-  contains!: string;
+  @Field(_type => String, { nullable: true })
+  contains?: string;
 }
