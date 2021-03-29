@@ -1,4 +1,13 @@
-import { FindManyOptions, FindOneOptions, IsNull, Like, Not } from "typeorm";
+import {
+  Between,
+  FindManyOptions,
+  FindOneOptions,
+  IsNull,
+  LessThanOrEqual,
+  Like,
+  MoreThanOrEqual,
+  Not
+} from "typeorm";
 import { ReadListArgs, ReadListFilter } from "../input/ReadListInput";
 import ReadList from "../model/ReadList";
 
@@ -27,7 +36,7 @@ export function getFindOptions(args: ReadListArgs) {
 }
 
 function getFilterOptions(filter: ReadListFilter) {
-  const { title, link, comment } = filter;
+  const { title, link, readAt, comment } = filter;
   const filterOptions: FindOneOptions<ReadList>["where"] = {};
 
   const titleKeyword = getKeyword(title?.contains);
@@ -38,6 +47,12 @@ function getFilterOptions(filter: ReadListFilter) {
   const linkKeyword = getKeyword(link?.contains);
   if (linkKeyword !== undefined) {
     filterOptions.link = linkKeyword;
+  }
+
+  const readAtDateOptions = getDateOptions(readAt?.from, readAt?.to);
+  const readAtOptions = getWithNullOptions(readAt?.isNull, readAtDateOptions);
+  if (readAtOptions !== undefined) {
+    filterOptions.readAt = readAtOptions;
   }
 
   const commentKeyword = getKeyword(comment?.contains);
@@ -62,6 +77,22 @@ function getWithNullOptions<T>(isNull?: boolean, filterValue?: T) {
     default:
       return filterValue;
   }
+}
+
+function getDateOptions(from?: Date, to?: Date) {
+  if (from !== undefined && to !== undefined) {
+    return Between(from, to);
+  }
+
+  if (from !== undefined && to === undefined) {
+    return MoreThanOrEqual(from);
+  }
+
+  if (from === undefined && to !== undefined) {
+    return LessThanOrEqual(to);
+  }
+
+  return undefined;
 }
 
 function getKeyword(keyword?: string) {
