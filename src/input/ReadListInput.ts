@@ -39,6 +39,12 @@ class ReadListSort extends Sort {
 }
 
 @InputType()
+class CommentFilter extends ContainsFilter {
+  @Field(_type => Boolean)
+  isNull?: boolean;
+}
+
+@InputType()
 class ReadListFilter {
   @Field(_type => ContainsFilter)
   title?: ContainsFilter;
@@ -46,8 +52,8 @@ class ReadListFilter {
   @Field(_type => ContainsFilter)
   link?: ContainsFilter;
 
-  @Field(_type => ContainsFilter)
-  comment?: ContainsFilter;
+  @Field(_type => CommentFilter)
+  comment?: CommentFilter;
 }
 
 @ArgsType()
