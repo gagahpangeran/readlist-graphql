@@ -21,15 +21,28 @@ export function getFindOptions(args: ReadListArgs) {
 
   if (filter !== undefined) {
     const { title, link, comment } = filter;
+    const filterOptions: typeof findOptions.where = {};
 
     const titleKeyword = getKeyword(title?.contains);
-    const linkKeyword = getKeyword(link?.contains);
+    if (titleKeyword !== undefined) {
+      filterOptions.title = titleKeyword;
+    }
 
-    findOptions.where = {
-      title: titleKeyword,
-      link: linkKeyword,
-      comment: getCommentOptions(comment?.isNull, comment?.contains)
-    };
+    const linkKeyword = getKeyword(link?.contains);
+    if (linkKeyword !== undefined) {
+      filterOptions.link = linkKeyword;
+    }
+
+    const commentOptions = getCommentOptions(
+      comment?.isNull,
+      comment?.contains
+    );
+
+    if (commentOptions !== undefined) {
+      filterOptions.comment = commentOptions;
+    }
+
+    findOptions.where = filterOptions;
   }
 
   return findOptions;
@@ -43,7 +56,7 @@ function getCommentOptions(isNull?: boolean, keyword?: string) {
       if (keyword === undefined) {
         return Not(IsNull());
       }
-      return Like(`%${keyword}`);
+      return getKeyword(keyword);
     case undefined:
     default:
       return getKeyword(keyword);
