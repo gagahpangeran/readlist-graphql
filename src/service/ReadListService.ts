@@ -12,6 +12,7 @@ export async function getAllReadList(args: ReadListArgs) {
   const { limit, skip, sort, filter } = args;
 
   const findOptions: FindManyOptions<ReadList> = {
+    select: ["id", "link", "title", "readAt", "comment"],
     skip,
     take: limit
   };
