@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import { ConnectionOptions } from "typeorm";
 import migrations from "./migrations";
 import ReadList from "./src/model/ReadList";
+import User from "./src/model/User";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ const connectionOptions: ConnectionOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [ReadList],
+  entities: [User, ReadList],
   migrations
 };
 
