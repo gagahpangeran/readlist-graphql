@@ -1,10 +1,8 @@
 import bcrypt from "bcryptjs";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import { SECRET } from "../config/const";
 import { getConnection } from "../config/db";
 import User from "../model/User";
-
-dotenv.config();
 
 async function getRepo() {
   const conn = await getConnection();
@@ -22,5 +20,5 @@ export async function login(username: string, password: string) {
     return undefined;
   }
 
-  return jwt.sign({ username }, process.env.SECRET ?? "secret");
+  return jwt.sign({ username }, SECRET);
 }

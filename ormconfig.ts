@@ -1,10 +1,8 @@
-import dotenv from "dotenv";
 import { ConnectionOptions } from "typeorm";
 import migrations from "./migrations";
+import * as env from "./src/config/const";
 import ReadList from "./src/model/ReadList";
 import User from "./src/model/User";
-
-dotenv.config();
 
 const connectionOptions: ConnectionOptions = {
   name: "default",
@@ -12,10 +10,10 @@ const connectionOptions: ConnectionOptions = {
   port: 3306,
   synchronize: true,
   logging: true,
-  host: process.env.DB_HOST,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: env.DB_HOST,
+  username: env.DB_USERNAME,
+  password: env.DB_PASSWORD,
+  database: env.DB_NAME,
   entities: [User, ReadList],
   migrations
 };
