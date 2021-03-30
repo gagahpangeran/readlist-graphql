@@ -1,4 +1,12 @@
-import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Args,
+  Authorized,
+  ID,
+  Mutation,
+  Query,
+  Resolver
+} from "type-graphql";
 import ReadList from "../model/ReadList";
 import {
   addReadList,
@@ -15,11 +23,13 @@ export default class ReadListResolver {
     return getAllReadList(args);
   }
 
+  @Authorized()
   @Mutation(_returns => ReadList)
   addReadList(@Arg("data") readListData: ReadListInput) {
     return addReadList(readListData);
   }
 
+  @Authorized()
   @Mutation(_returns => ReadList)
   editReadList(
     @Arg("id", _type => ID) id: string,
@@ -28,6 +38,7 @@ export default class ReadListResolver {
     return editReadList(id, readListData);
   }
 
+  @Authorized()
   @Mutation(_returns => Boolean)
   deleteReadLists(@Arg("ids", _type => [ID]) ids: string[]) {
     return deleteReadLists(ids);
