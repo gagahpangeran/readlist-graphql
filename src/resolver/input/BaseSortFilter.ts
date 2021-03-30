@@ -1,4 +1,4 @@
-import { Field, InputType, registerEnumType } from "type-graphql";
+import { ClassType, Field, InputType, registerEnumType } from "type-graphql";
 import {
   Between,
   IsNull,
@@ -60,17 +60,29 @@ export class DateFilter {
   }
 }
 
-export function getWithNullOptions<T>(isNull?: boolean, filterValue?: T) {
-  switch (isNull) {
-    case true:
-      return IsNull();
-    case false:
-      if (filterValue === undefined) {
-        return Not(IsNull());
+export function withNullFilter<TClassType extends ClassType>(
+  BaseClass: TClassType
+) {
+  @InputType({ isAbstract: true })
+  class WithNullFilter extends BaseClass {
+    @Field(_type => Boolean, { nullable: true })
+    isNull?: boolean;
+
+    getWithNullOptions<T>(filterValue?: T) {
+      switch (this.isNull) {
+        case true:
+          return IsNull();
+        case false:
+          if (filterValue === undefined) {
+            return Not(IsNull());
+          }
+          return filterValue;
+        case undefined:
+        default:
+          return filterValue;
       }
-      return filterValue;
-    case undefined:
-    default:
-      return filterValue;
+    }
   }
+
+  return WithNullFilter;
 }

@@ -4,8 +4,8 @@ import ReadList from "../../model/ReadList";
 import {
   ContainsFilter,
   DateFilter,
-  getWithNullOptions,
-  Sort
+  Sort,
+  withNullFilter
 } from "./BaseSortFilter";
 
 enum ReadListFields {
@@ -30,24 +30,18 @@ export class ReadListSort extends Sort {
 }
 
 @InputType()
-class CommentFilter extends ContainsFilter {
-  @Field(_type => Boolean, { nullable: true })
-  isNull?: boolean;
-
+class CommentFilter extends withNullFilter(ContainsFilter) {
   getFilterOptions() {
     const filterValue = super.getFilterOptions();
-    return getWithNullOptions(this.isNull, filterValue);
+    return super.getWithNullOptions(filterValue);
   }
 }
 
 @InputType()
-class ReadAtFilter extends DateFilter {
-  @Field(_type => Boolean, { nullable: true })
-  isNull?: boolean;
-
+class ReadAtFilter extends withNullFilter(DateFilter) {
   getFilterOptions() {
     const filterValue = super.getFilterOptions();
-    return getWithNullOptions(this.isNull, filterValue);
+    return super.getWithNullOptions(filterValue);
   }
 }
 
