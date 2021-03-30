@@ -10,7 +10,12 @@ import { createSchema } from "../config/schema";
 
 const createHandler = async () => {
   const schema = await createSchema();
-  const server = new ApolloServer({ schema });
+  const server = new ApolloServer({
+    schema,
+    context: ({ event }: { event: APIGatewayProxyEvent }) => ({
+      bearerToken: event.headers?.["authorization"]
+    })
+  });
   return server.createHandler();
 };
 
