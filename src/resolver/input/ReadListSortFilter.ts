@@ -60,28 +60,10 @@ export class ReadListFilter {
   readAt?: ReadAtFilter;
 
   getFilterOptions() {
-    const filterOptions: FindOneOptions<ReadList>["where"] = {};
-
-    const titleOptions = this.title?.getFilterOptions();
-    if (titleOptions !== undefined) {
-      filterOptions.title = titleOptions;
-    }
-
-    const linkOptions = this.link?.getFilterOptions();
-    if (linkOptions !== undefined) {
-      filterOptions.link = linkOptions;
-    }
-
-    const readAtOptions = this.readAt?.getFilterOptions();
-    if (readAtOptions !== undefined) {
-      filterOptions.readAt = readAtOptions;
-    }
-
-    const commentOptions = this.comment?.getFilterOptions();
-    if (commentOptions !== undefined) {
-      filterOptions.comment = commentOptions;
-    }
-
-    return filterOptions;
+    return Object.fromEntries(
+      Object.entries(this)
+        .map(([key, value]) => [key, value?.getFilterOptions()])
+        .filter(([, value]) => value !== undefined)
+    );
   }
 }
