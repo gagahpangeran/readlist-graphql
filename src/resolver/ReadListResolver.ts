@@ -11,8 +11,8 @@ import { ReadListArgs, ReadListInput } from "./input/ReadListInput";
 @Resolver(_of => ReadList)
 export default class ReadListResolver {
   @Query(_returns => [ReadList])
-  async allReadLists(@Args() args: ReadListArgs) {
-    return await getAllReadList(args);
+  allReadLists(@Args() args: ReadListArgs) {
+    return getAllReadList(args);
   }
 
   @Mutation(_returns => ReadList)
