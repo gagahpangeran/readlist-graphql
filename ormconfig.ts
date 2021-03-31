@@ -8,7 +8,7 @@ const connectionOptions: ConnectionOptions = {
   name: "default",
   type: "mysql",
   port: 3306,
-  logging: true,
+  logging: env.NODE_ENV === "development",
   host: env.DB_HOST,
   username: env.DB_USERNAME,
   password: env.DB_PASSWORD,
