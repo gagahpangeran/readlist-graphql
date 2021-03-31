@@ -6,6 +6,7 @@ import {
   Context
 } from "aws-lambda";
 import "reflect-metadata";
+import { ALLOWED_HOSTS } from "../config/const";
 import { createSchema } from "../config/schema";
 
 const createHandler = async () => {
@@ -16,7 +17,13 @@ const createHandler = async () => {
       bearerToken: event.headers?.["authorization"]
     })
   });
-  return server.createHandler();
+
+  return server.createHandler({
+    cors: {
+      origin: ALLOWED_HOSTS,
+      credentials: true
+    }
+  });
 };
 
 export const handler = (
