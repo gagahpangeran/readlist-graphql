@@ -2,7 +2,7 @@
 # for config documentation
 
 [build]
-  command = "yarn build"
+  command = "yarn migration:run && yarn build"
   functions = "funcs"
 
 [[redirects]]
