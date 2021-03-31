@@ -1,2 +1,6 @@
-build/*
+build/
 funcs/
+.netlify/
+coverage/
+.vscode/
+.github/
