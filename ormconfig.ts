@@ -8,7 +8,6 @@ const connectionOptions: ConnectionOptions = {
   name: "default",
   type: "mysql",
   port: 3306,
-  synchronize: true,
   logging: true,
   host: env.DB_HOST,
   username: env.DB_USERNAME,
