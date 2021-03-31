@@ -1,8 +1,8 @@
 name: Deploy and Release
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "*"
 
 jobs:
   deploy:
@@ -62,3 +62,20 @@ jobs:
         with:
           args: |
             deploy --prod --dir=public --functions=funcs
+
+  release:
+    needs: deploy
+    name: Create release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
+
+      - name: Release tag
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: New release, yay!
