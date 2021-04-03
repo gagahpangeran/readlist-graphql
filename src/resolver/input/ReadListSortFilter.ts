@@ -23,9 +23,13 @@ export class ReadListSort extends Sort {
 
   getSortOptions() {
     const sortOptions: FindOneOptions<ReadList>["order"] = {
-      [this.fields]: this.order,
-      createdAt: this.order
+      [this.fields]: this.order
     };
+
+    if (this.fields === ReadListFields.readAt) {
+      sortOptions.createdAt = this.order;
+    }
+
     return sortOptions;
   }
 }
