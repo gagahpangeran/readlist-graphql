@@ -24,7 +24,7 @@ export class ReadListArgs {
   @Field(_type => Int, { nullable: true })
   @Min(0)
   @Max(100)
-  limit = 100;
+  limit = 10;
 
   @Field(_type => Int, { nullable: true })
   @Min(0)
