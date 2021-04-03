@@ -9,7 +9,7 @@ import {
   withNullFilter
 } from "./BaseSortFilter";
 
-enum ReadListFields {
+export enum ReadListFields {
   readAt = "readAt",
   title = "title"
 }
@@ -19,7 +19,12 @@ registerEnumType(ReadListFields, { name: "ReadListFields" });
 @InputType()
 export class ReadListSort extends Sort {
   @Field(_type => ReadListFields)
-  fields!: ReadListFields;
+  fields: ReadListFields;
+
+  constructor(fields: ReadListFields, order: Order) {
+    super(order);
+    this.fields = fields;
+  }
 
   getSortOptions() {
     const sortOptions: FindOneOptions<ReadList>["order"] = {
@@ -33,10 +38,6 @@ export class ReadListSort extends Sort {
     return sortOptions;
   }
 }
-
-export const defaultReadListSort = new ReadListSort();
-defaultReadListSort.fields = ReadListFields.readAt;
-defaultReadListSort.order = Order.DESC;
 
 @InputType()
 class CommentFilter extends withNullFilter(ContainsFilter) {

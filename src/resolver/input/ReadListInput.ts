@@ -1,8 +1,9 @@
 import { IsUrl, Max, Min } from "class-validator";
 import { ArgsType, Field, InputType, Int } from "type-graphql";
 import ReadList from "../../model/ReadList";
+import { Order } from "./BaseSortFilter";
 import {
-  defaultReadListSort,
+  ReadListFields,
   ReadListFilter,
   ReadListSort
 } from "./ReadListSortFilter";
@@ -36,7 +37,7 @@ export class ReadListArgs {
   skip = 0;
 
   @Field(_type => ReadListSort, { nullable: true })
-  sort = defaultReadListSort;
+  sort = new ReadListSort(ReadListFields.readAt, Order.DESC);
 
   @Field(_type => ReadListFilter, { nullable: true })
   filter?: ReadListFilter;
