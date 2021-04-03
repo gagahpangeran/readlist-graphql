@@ -4,6 +4,7 @@ import ReadList from "../../model/ReadList";
 import {
   ContainsFilter,
   DateFilter,
+  Order,
   Sort,
   withNullFilter
 } from "./BaseSortFilter";
@@ -28,6 +29,11 @@ export class ReadListSort extends Sort {
     return sortOptions;
   }
 }
+
+export const defaultReadListSort: Partial<ReadListSort> = {
+  fields: ReadListFields.readAt,
+  order: Order.DESC
+};
 
 @InputType()
 class CommentFilter extends withNullFilter(ContainsFilter) {

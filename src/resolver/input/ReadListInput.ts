@@ -1,7 +1,11 @@
 import { IsUrl, Max, Min } from "class-validator";
 import { ArgsType, Field, InputType, Int } from "type-graphql";
 import ReadList from "../../model/ReadList";
-import { ReadListFilter, ReadListSort } from "./ReadListSortFilter";
+import {
+  defaultReadListSort,
+  ReadListFilter,
+  ReadListSort
+} from "./ReadListSortFilter";
 
 @InputType()
 export class ReadListInput implements Partial<ReadList> {
@@ -32,7 +36,7 @@ export class ReadListArgs {
   skip = 0;
 
   @Field(_type => ReadListSort, { nullable: true })
-  sort?: ReadListSort;
+  sort = defaultReadListSort;
 
   @Field(_type => ReadListFilter, { nullable: true })
   filter?: ReadListFilter;
