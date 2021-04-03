@@ -4,10 +4,10 @@ import { login } from "../service/LoginService";
 
 @ObjectType()
 class Auth {
-  @Field({ nullable: true })
+  @Field()
   token!: string;
 
-  @Field({ nullable: true })
+  @Field()
   username!: string;
 }
 
