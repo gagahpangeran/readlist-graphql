@@ -30,10 +30,9 @@ export class ReadListSort extends Sort {
   }
 }
 
-export const defaultReadListSort: Partial<ReadListSort> = {
-  fields: ReadListFields.readAt,
-  order: Order.DESC
-};
+export const defaultReadListSort = new ReadListSort();
+defaultReadListSort.fields = ReadListFields.readAt;
+defaultReadListSort.order = Order.DESC;
 
 @InputType()
 class CommentFilter extends withNullFilter(ContainsFilter) {
