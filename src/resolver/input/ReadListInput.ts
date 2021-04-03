@@ -21,12 +21,12 @@ export class ReadListInput implements Partial<ReadList> {
 
 @ArgsType()
 export class ReadListArgs {
-  @Field(_type => Int)
+  @Field(_type => Int, { nullable: true })
   @Min(0)
   @Max(100)
   limit = 100;
 
-  @Field(_type => Int)
+  @Field(_type => Int, { nullable: true })
   @Min(0)
   @Max(100)
   skip = 0;
