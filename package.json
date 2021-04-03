@@ -51,6 +51,8 @@
     "lint": "run-s lint:*",
     "lint:eslint": "eslint --quiet \"**/*.{ts,tsx}\"",
     "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
+    "test": "jest",
+    "test:cov": "jest --coverage",
     "type-check": "tsc --noEmit",
     "migration:create": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate -d ./migrations -n",
     "migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run"
