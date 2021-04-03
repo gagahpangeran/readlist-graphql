@@ -18,7 +18,11 @@ registerEnumType(Order, { name: "Order" });
 @InputType()
 export class Sort {
   @Field(_type => Order)
-  order!: Order;
+  order: Order;
+
+  constructor(order: Order) {
+    this.order = order;
+  }
 }
 
 @InputType()

@@ -4,11 +4,12 @@ import ReadList from "../../model/ReadList";
 import {
   ContainsFilter,
   DateFilter,
+  Order,
   Sort,
   withNullFilter
 } from "./BaseSortFilter";
 
-enum ReadListFields {
+export enum ReadListFields {
   readAt = "readAt",
   title = "title"
 }
@@ -18,13 +19,22 @@ registerEnumType(ReadListFields, { name: "ReadListFields" });
 @InputType()
 export class ReadListSort extends Sort {
   @Field(_type => ReadListFields)
-  fields!: ReadListFields;
+  fields: ReadListFields;
+
+  constructor(fields: ReadListFields, order: Order) {
+    super(order);
+    this.fields = fields;
+  }
 
   getSortOptions() {
     const sortOptions: FindOneOptions<ReadList>["order"] = {
-      [this.fields]: this.order,
-      createdAt: this.order
+      [this.fields]: this.order
     };
+
+    if (this.fields === ReadListFields.readAt) {
+      sortOptions.createdAt = this.order;
+    }
+
     return sortOptions;
   }
 }
