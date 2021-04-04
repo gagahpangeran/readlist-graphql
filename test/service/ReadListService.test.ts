@@ -2,7 +2,11 @@ import { mocked } from "ts-jest/utils";
 import { getConnectionManager } from "typeorm";
 import * as configDB from "../../src/config/db";
 import ReadList from "../../src/model/ReadList";
-import { addReadList, getAllReadList } from "../../src/service/ReadListService";
+import {
+  addReadList,
+  editReadList,
+  getAllReadList
+} from "../../src/service/ReadListService";
 import { setupDB } from "../setup/db";
 
 jest.mock("../../src/config/db");
@@ -14,6 +18,13 @@ const mockReadList = {
   title: "Test",
   readAt: new Date(),
   comment: "test"
+};
+
+const getReadListArgs = {
+  skip: 0,
+  limit: 1,
+  sort: undefined,
+  filter: undefined
 };
 
 beforeEach(async () => {
@@ -31,13 +42,7 @@ afterEach(async () => {
 
 describe("Get all read lists from database", () => {
   it("Should return correct array of read list", async () => {
-    const result = await getAllReadList({
-      skip: 0,
-      limit: 5,
-      sort: undefined,
-      filter: undefined
-    });
-
+    const result = await getAllReadList(getReadListArgs);
     expect(result).toMatchObject([mockReadList]);
   });
 });
@@ -48,5 +53,15 @@ describe("Add new read lists to database", () => {
 
     const result = await addReadList(mockNewReadList);
     expect(result).toMatchObject(mockNewReadList);
+  });
+});
+
+describe("Edit existing read lists in database", () => {
+  it("Should return correct read list after edit", async () => {
+    const [{ id }] = await getAllReadList(getReadListArgs);
+    const newMockData = { ...mockReadList, title: "Edited" };
+
+    const result = await editReadList(id, newMockData);
+    expect(result).toMatchObject(newMockData);
   });
 });
