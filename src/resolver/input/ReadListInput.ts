@@ -36,8 +36,11 @@ export class ReadListArgs {
   @Max(100)
   skip = 0;
 
-  @Field(_type => ReadListSort, { nullable: true })
-  sort = new ReadListSort(ReadListFields.readAt, Order.DESC);
+  @Field(_type => ReadListSort, {
+    nullable: true,
+    defaultValue: new ReadListSort(ReadListFields.readAt, Order.DESC)
+  })
+  sort?: ReadListSort;
 
   @Field(_type => ReadListFilter, { nullable: true })
   filter?: ReadListFilter;
