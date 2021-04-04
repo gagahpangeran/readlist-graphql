@@ -4,6 +4,7 @@ import * as configDB from "../../src/config/db";
 import ReadList from "../../src/model/ReadList";
 import {
   addReadList,
+  deleteReadLists,
   editReadList,
   getAllReadList
 } from "../../src/service/ReadListService";
@@ -63,5 +64,14 @@ describe("Edit existing read lists in database", () => {
 
     const result = await editReadList(id, newMockData);
     expect(result).toMatchObject(newMockData);
+  });
+});
+
+describe("Delete read lists from database", () => {
+  it("Should delete read list", async () => {
+    const [{ id }] = await getAllReadList(getReadListArgs);
+
+    const result = await deleteReadLists([id]);
+    expect(result).toBe(true);
   });
 });
