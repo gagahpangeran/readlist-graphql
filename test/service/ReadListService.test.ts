@@ -2,7 +2,7 @@ import { mocked } from "ts-jest/utils";
 import { getConnectionManager } from "typeorm";
 import * as configDB from "../../src/config/db";
 import ReadList from "../../src/model/ReadList";
-import { getAllReadList } from "../../src/service/ReadListService";
+import { addReadList, getAllReadList } from "../../src/service/ReadListService";
 import { setupDB } from "../setup/db";
 
 jest.mock("../../src/config/db");
@@ -39,5 +39,14 @@ describe("Get all read lists from database", () => {
     });
 
     expect(result).toMatchObject([mockReadList]);
+  });
+});
+
+describe("Add new read lists to database", () => {
+  it("Should return correct read list after add", async () => {
+    const mockNewReadList = { link: "http://new.com", title: "New" };
+
+    const result = await addReadList(mockNewReadList);
+    expect(result).toMatchObject(mockNewReadList);
   });
 });
