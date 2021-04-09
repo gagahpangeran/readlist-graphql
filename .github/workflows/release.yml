@@ -14,7 +14,6 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_NAME: ${{ secrets.DB_NAME }}
       SECRET: ${{ secrets.SECRET }}
-      ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
     steps:
       - name: Checkout master
         uses: actions/checkout@v2
