@@ -6,7 +6,6 @@ import {
   Context
 } from "aws-lambda";
 import "reflect-metadata";
-import { ALLOWED_HOSTS } from "../config/const";
 import { createSchema } from "../config/schema";
 
 const createHandler = async () => {
@@ -20,8 +19,7 @@ const createHandler = async () => {
 
   return server.createHandler({
     cors: {
-      origin: ALLOWED_HOSTS,
-      credentials: true
+      origin: "*"
     }
   });
 };
