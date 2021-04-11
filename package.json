@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development netlify-lambda serve ./src/functions",
-    "build": "NODE_ENV=development netlify-lambda build -c webpack.prod.js ./src/functions",
+    "build": "NODE_ENV=production netlify-lambda build -c webpack.prod.js ./src/functions",
     "format": "run-s format:*",
     "format:eslint": "eslint --fix  \"**/*.{ts,tsx}\"",
     "format:prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json}\"",
