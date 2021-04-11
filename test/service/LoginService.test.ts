@@ -36,4 +36,14 @@ describe("Test for login service function", () => {
 
     expect(result.username).toBe(USERNAME);
   });
+
+  it("should return undefined for non exist username", async () => {
+    const result = await login("nottest", PASSWORD);
+    expect(result).toBeUndefined();
+  });
+
+  it("should return undefined for wrong password", async () => {
+    const result = await login(USERNAME, "pass");
+    expect(result).toBeUndefined();
+  });
 });
