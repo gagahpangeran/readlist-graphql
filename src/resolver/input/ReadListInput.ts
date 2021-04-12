@@ -1,4 +1,4 @@
-import { IsDateString, IsUrl, Max, Min } from "class-validator";
+import { IsDate, IsUrl, Max, Min } from "class-validator";
 import { ArgsType, Field, InputType, Int } from "type-graphql";
 import ReadList from "../../model/ReadList";
 import { Order } from "./BaseSortFilter";
@@ -17,7 +17,7 @@ export class ReadListInput implements Partial<ReadList> {
   @Field()
   title!: string;
 
-  @IsDateString()
+  @IsDate()
   @Field({ nullable: true })
   readAt?: Date;
 
