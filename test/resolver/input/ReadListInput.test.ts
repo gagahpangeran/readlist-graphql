@@ -12,4 +12,15 @@ describe("Test validation for ReadListInput", () => {
     const error = await validate(input);
     expect(error.length).toBe(0);
   });
+
+  it("Should not validate wrong type input", async () => {
+    const input = new ReadListInput();
+    input.title = "test";
+    input.link = "not a link";
+    input.readAt = new Date("not date");
+    input.comment = "test comment";
+
+    const error = await validate(input);
+    expect(error.length).toBeGreaterThan(0);
+  });
 });
