@@ -34,7 +34,6 @@ export class ReadListArgs {
 
   @Field(_type => Int, { nullable: true })
   @Min(0)
-  @Max(100)
   skip = 0;
 
   @Field(_type => ReadListSort, {
