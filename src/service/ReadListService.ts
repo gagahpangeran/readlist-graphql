@@ -1,7 +1,10 @@
 import { FindManyOptions } from "typeorm";
 import { getConnection } from "../config/db";
 import ReadList from "../model/ReadList";
-import { ReadListArgs, ReadListInput } from "../resolver/input/ReadListInput";
+import {
+  ReadListArgs,
+  ReadListInputData
+} from "../resolver/input/ReadListInput";
 
 async function getRepo() {
   const conn = await getConnection();
@@ -28,11 +31,11 @@ export async function getAllReadList(args: ReadListArgs) {
   return await (await getRepo()).find(findOptions);
 }
 
-export async function addReadList(data: ReadListInput) {
+export async function addReadList(data: ReadListInputData) {
   return await (await getRepo()).save(data);
 }
 
-export async function editReadList(id: string, data: ReadListInput) {
+export async function editReadList(id: string, data: ReadListInputData) {
   return await (await getRepo()).save({ id, ...data });
 }
 

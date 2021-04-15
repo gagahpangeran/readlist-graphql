@@ -34,6 +34,8 @@ export class ReadListInput implements Partial<ReadList> {
   }
 }
 
+export type ReadListInputData = Omit<ReadListInput, "cleanInput">;
+
 @ArgsType()
 export class ReadListArgs {
   @Field(_type => Int, { nullable: true })
