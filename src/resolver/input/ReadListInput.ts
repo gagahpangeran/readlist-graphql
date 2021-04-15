@@ -23,7 +23,18 @@ export class ReadListInput implements Partial<ReadList> {
 
   @Field({ nullable: true })
   comment?: string;
+
+  get cleanInput(): ReadListInputData {
+    return {
+      link: this.link.trim(),
+      title: this.title.trim(),
+      readAt: this.readAt,
+      comment: this.comment?.trim()
+    };
+  }
 }
+
+export type ReadListInputData = Omit<ReadListInput, "cleanInput">;
 
 @ArgsType()
 export class ReadListArgs {

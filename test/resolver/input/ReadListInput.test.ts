@@ -24,3 +24,27 @@ describe("Test validation for ReadListInput", () => {
     expect(error.length).toBeGreaterThan(0);
   });
 });
+
+describe("Test clean input ReadListInput", () => {
+  const now = new Date();
+  const input = new ReadListInput();
+  input.title = " test ";
+  input.link = " https://test.com ";
+  input.readAt = now;
+  input.comment = " test comment ";
+
+  it("Should return clean input", async () => {
+    const expectedResult = {
+      title: "test",
+      link: "https://test.com",
+      readAt: now,
+      comment: "test comment"
+    };
+
+    expect(input.cleanInput).toMatchObject(expectedResult);
+  });
+
+  it("Should not return the sampe input", async () => {
+    expect(input.cleanInput).not.toMatchObject(input);
+  });
+});
