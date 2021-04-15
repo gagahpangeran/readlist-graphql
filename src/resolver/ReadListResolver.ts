@@ -26,7 +26,7 @@ export default class ReadListResolver {
   @Authorized()
   @Mutation(_returns => ReadList)
   addReadList(@Arg("data") readListData: ReadListInput) {
-    return addReadList(readListData);
+    return addReadList(readListData.cleanInput);
   }
 
   @Authorized()
@@ -35,7 +35,7 @@ export default class ReadListResolver {
     @Arg("id", _type => ID) id: string,
     @Arg("data") readListData: ReadListInput
   ) {
-    return editReadList(id, readListData);
+    return editReadList(id, readListData.cleanInput);
   }
 
   @Authorized()
