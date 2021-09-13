@@ -22,7 +22,7 @@
     "apollo-server-lambda": "^2.21.2",
     "bcryptjs": "^2.4.3",
     "encoding": "^0.1.13",
-    "graphql": "^15.5.0",
+    "graphql": "^15.5.3",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "type-graphql": "^1.1.1",
