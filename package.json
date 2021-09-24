@@ -15,6 +15,7 @@
     "test:cov": "jest --coverage",
     "type-check": "tsc --noEmit",
     "migration:create": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate -d ./migrations -n",
+    "migration:revert": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert",
     "migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
     "prepare": "husky install"
   },
