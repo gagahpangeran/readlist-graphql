@@ -32,7 +32,7 @@ export default class ReadListResolver {
   @Authorized()
   @Mutation(_returns => ReadList)
   editReadList(
-    @Arg("id", _type => ID) id: string,
+    @Arg("id", _type => ID) id: number,
     @Arg("data") readListData: ReadListInput
   ) {
     return editReadList(id, readListData.cleanInput);
@@ -40,7 +40,7 @@ export default class ReadListResolver {
 
   @Authorized()
   @Mutation(_returns => Boolean)
-  deleteReadLists(@Arg("ids", _type => [ID]) ids: string[]) {
+  deleteReadLists(@Arg("ids", _type => [ID]) ids: number[]) {
     return deleteReadLists(ids);
   }
 }
