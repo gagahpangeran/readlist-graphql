@@ -6,8 +6,8 @@ import Base from "./Base";
 @Entity()
 export default class ReadList extends Base {
   @Field(_type => ID)
-  @PrimaryGeneratedColumn("uuid")
-  id!: string;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @Field()
   @Column()
